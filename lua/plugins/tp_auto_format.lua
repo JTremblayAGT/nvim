@@ -48,7 +48,7 @@ return {
               
               -- If in the MN section and the line is empty, add the template
               if in_mn_section and current_line:match("^%s*$") then
-                vim.api.nvim_buf_set_lines(0, line_nr - 1, line_nr, false, {"   1:  ;"})
+                vim.api.nvim_buf_set_lines(0, line_nr - 1, line_nr, false, {"   1:   ;"})
                 -- Position cursor before the semicolon
                 vim.api.nvim_win_set_cursor(0, {line_nr, 7})
               end

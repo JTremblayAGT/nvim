@@ -32,10 +32,10 @@ vim.keymap.set("n", "<C-S-Down>" , "<cmd>resize -2<cr>", { desc = "Decrease Wind
 vim.keymap.set("n", "<C-S-Left>" , "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
 vim.keymap.set("n", "<C-S-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
 
-vim.keymap.set("n", "<C-A-Up>"   , "<C-w>H", { desc = "Increase Window Height" })
-vim.keymap.set("n", "<C-A-Down>" , "<C-w>J", { desc = "Decrease Window Height" })
-vim.keymap.set("n", "<C-A-Left>" , "<C-w>K", { desc = "Decrease Window Width" })
-vim.keymap.set("n", "<C-A-Right>", "<C-w>L", { desc = "Increase Window Width" })
+vim.keymap.set("n", "<C-A-Up>"   , "<C-w>H", { desc = "" })
+vim.keymap.set("n", "<C-A-Down>" , "<C-w>J", { desc = "" })
+vim.keymap.set("n", "<C-A-Left>" , "<C-w>K", { desc = "" })
+vim.keymap.set("n", "<C-A-Right>", "<C-w>L", { desc = "" })
 
 vim.keymap.set("n", "<A-k>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
 vim.keymap.set("n", "<A-l>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Up" })
