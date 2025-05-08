@@ -1,4 +1,4 @@
-return {
+return
   -- Custom plugin for TP file format
   {
     name = "tp-format", -- Depend on the TP syntax plugin you already have
@@ -307,7 +307,10 @@ return {
         
         -- Replace buffer content with formatted lines
         vim.api.nvim_buf_set_lines(0, 0, -1, false, formatted_lines)
+        vim.notify("Formatted TPP file", vim.log.levels.INFO, {
+          title = "TPP Autoformat",
+          timeout = 1000,
+        })
       end
     end,
   }
-}

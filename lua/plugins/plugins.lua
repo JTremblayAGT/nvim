@@ -8,5 +8,5 @@ return {
             keys[#keys + 1] = { "K", false }
             keys[#keys + 1] = { "H", function() return vim.lsp.buf.hover() end }
         end,
-    }
+    },
 }
