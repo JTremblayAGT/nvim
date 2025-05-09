@@ -232,18 +232,20 @@ function M.setup()
       vim.notify("Invalid color format. Use hexadecimal format (e.g., #6a9955)", vim.log.levels.ERROR)
     end
   end, { nargs = 1 })
-  
-  -- Function to jump to label referenced by JMP instruction
+    -- Function to jump to label referenced by JMP instruction
   vim.api.nvim_create_user_command("TPJumpToLabel", function()
     -- Get the current line
     local line = vim.api.nvim_get_current_line()
     
-    -- Check if this is a JMP LBL instruction
-    -- Pattern matches lines like: "   1:  JMP LBL[TARGET];" or "   1:  JMP LBL[TARGET: comment];"
-    local target_label = line:match("JMP%s+LBL%[([%w_]+)[:%]]")
+    -- Check for JMP LBL or Skip,LBL instructions
+    -- Pattern matches lines like:
+    -- "   1:  JMP LBL[TARGET];" or "   1:  JMP LBL[TARGET: comment];"
+    -- "   1:  Skip,LBL[TARGET];" or "   1:  Skip,LBL[TARGET: comment];"
+    local target_label = line:match("JMP%s+LBL%[([%w_]+)[:%]]") or
+                          line:match("[Ss][Kk][Ii][Pp],%s*LBL%[([%w_]+)[:%]]")
     
     if not target_label then
-      vim.notify("Not a JMP LBL instruction or label name not found", vim.log.levels.WARN)
+      vim.notify("Not a JMP LBL or Skip,LBL instruction or label name not found", vim.log.levels.WARN)
       return
     end
     
