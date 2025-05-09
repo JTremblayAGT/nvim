@@ -14,6 +14,9 @@ return {
     
     -- Load the maketp diagnostics module
     require("fanuc.maketp").setup()
+
+    -- Load the checktp module
+    require("fanuc.checktp").setup()
     
     -- Load the TP navigation module
     require("fanuc.tp_navigation").setup()

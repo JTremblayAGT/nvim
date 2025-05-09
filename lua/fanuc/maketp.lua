@@ -70,7 +70,7 @@ function M.setup()
       -- Get the original file extension case
       local ext = string.match(bufname, "%.([lL][sS])$")
       -- Remove the generated TP file, maintaining the same case pattern
-      os.remove(string.gsub(bufname, "%." .. ext, ".tp"))
+      os.remove(string.gsub(vim.fn.fnamemodify(bufname, ":t"), "%." .. ext, ".tp"))
       -- Parse output
       local diag = parse_result(d)
       
@@ -114,7 +114,7 @@ function M.setup()
   -- Add a user command to run maketp manually
   vim.api.nvim_create_user_command("Maketp", function()
     _G.maketp_diagnostics.run_on_current_buffer()
-  end, { desc = "Run maketp diagnostics on current buffer" })
+  end, { desc = "Run maketp on current buffer" })
 end
 
 return M
