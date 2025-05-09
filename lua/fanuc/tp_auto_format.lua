@@ -198,7 +198,7 @@ function M.format_tp_file()
         local rest = content:match("^%s*[JLC]%s+(.*)")
         
         -- For motion instructions, replace the standard space after "1:" with the motion type
-        formatted_line = "   1:" .. motion_type .. " " .. rest
+        formatted_line = "   1:" .. string.rep(" ", indent_level * 4) .. motion_type .. " " .. rest
       else
         -- Check if this is a SELECT case line for alignment
         local is_select_case = false
@@ -237,7 +237,7 @@ function M.format_tp_file()
               content = content:gsub("(=%s*)", string.rep(" ", needed_spaces) .. "%1")
             end
           end
-          formatted_line = standard_prefix .. content
+          formatted_line = standard_prefix .. string.rep(" ", indent_level * 4) .. content
         -- Apply ELSE branch alignment
         elseif is_else_branch and select_info then
           -- For ELSE branch, align the comma with the max_comma_pos from regular cases
@@ -250,17 +250,9 @@ function M.format_tp_file()
               content = content:gsub("^(ELSE)", string.rep(" ", needed_spaces) .. "%1")
             end
           end
-          formatted_line = standard_prefix .. content
+          formatted_line = standard_prefix .. string.rep(" ", indent_level * 4) .. content
         else
-          -- Apply indentation for control structures
-          -- Skip indentation for labels and SELECT statements
-          if not content:match("^LBL%[") and not content:match("^SELECT") then
-            -- Always add two spaces after "1:" before adding indentation
-            formatted_line = standard_prefix .. string.rep(" ", indent_level * 4) .. content
-          else
-            -- For labels and SELECT statements, just use the standard prefix
-            formatted_line = standard_prefix .. content
-          end
+          formatted_line = standard_prefix .. string.rep(" ", indent_level * 4) .. content
         end
       end
       
