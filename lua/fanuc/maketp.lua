@@ -52,13 +52,12 @@ function M.setup()
     
     return diag
   end
-
   local function callback_fn()
     -- Run maketp
     local bufname = vim.api.nvim_buf_get_name(0)
     
-    -- Only process .ls files
-    if not string.match(bufname, "%.ls$") then
+    -- Only process .ls files (case insensitive)
+    if not string.match(bufname:lower(), "%.ls$") then
       return
     end
     
@@ -68,7 +67,10 @@ function M.setup()
         return
       end
       
-      os.remove(string.gsub(bufname, ".ls", ".tp"))
+      -- Get the original file extension case
+      local ext = string.match(bufname, "%.([lL][sS])$")
+      -- Remove the generated TP file, maintaining the same case pattern
+      os.remove(string.gsub(bufname, "%." .. ext, ".tp"))
       -- Parse output
       local diag = parse_result(d)
       
@@ -94,7 +96,7 @@ function M.setup()
 
   -- Set up the autocommand
   vim.api.nvim_create_autocmd({"BufWritePost"}, {
-    pattern = {"*.ls"},
+    pattern = {"*.ls", "*.LS"},
     desc = "Run maketp on .ls file",
     group = vim.api.nvim_create_augroup("FanucTpDiagnostics", { clear = true }),
     callback = function()
