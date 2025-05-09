@@ -257,7 +257,7 @@ function M.format_tp_file()
       end
       
       -- Check for structures that increase indentation
-      if content:match("IF%s+.+THEN") or content:match("FOR%s+.+%s") then
+      if content:match("IF%s+.+THEN") or content:match("^%s*FOR%s+.+%s") then
         indent_level = indent_level + 1
       end
       
