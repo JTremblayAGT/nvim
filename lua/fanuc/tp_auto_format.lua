@@ -175,7 +175,7 @@ function M.format_tp_file()
       table.insert(mn_section, line)
     else
       -- Handle indentation for control structures that decrease indent
-      if line:match("ENDIF") or line:match("ENDFOR") or line:match("ENDWHILE") then
+      if line:match("ENDIF") or line:match("ENDFOR")  then
         indent_level = math.max(0, indent_level - 1)
       end
       
@@ -265,14 +265,14 @@ function M.format_tp_file()
       end
       
       -- Check for structures that increase indentation
-      if content:match("IF%s+.+THEN") or content:match("FOR%s+.+DO") or content:match("WHILE%s+.+DO") then
+      if content:match("IF%s+.+THEN") or content:match("FOR%s+.+%s") then
         indent_level = indent_level + 1
       end
       
       -- Special case for ELSE (maintains same indentation as its IF)
       if content:match("^%s*ELSE%s*;") then
         -- Ensure we have exactly two spaces after "1:" plus indentation
-        formatted_line = standard_prefix .. string.rep(" ", (indent_level) * 4) .. "ELSE;"
+        formatted_line = standard_prefix .. string.rep(" ", (indent_level - 1) * 4) .. "ELSE;"
       end
       
       -- Ensure there's always exactly one space before semicolons at the end of the line
