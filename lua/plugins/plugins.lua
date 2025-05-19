@@ -3,7 +3,7 @@ return {
   { "KnoP-01/vim-tp" },
   {
     "neovim/nvim-lspconfig",
-    opts = function()
+    keys = function()
       local keys = require("lazyvim.plugins.lsp.keymaps").get()
       keys[#keys + 1] = { "K", false }
       keys[#keys + 1] = {
@@ -12,23 +12,45 @@ return {
           return vim.lsp.buf.hover()
         end,
       }
-      return {
-        --inlay_hints = { enabled = false },
-        servers = {
-          fanuctp_lsp = {},
-        },
-        setup = {
-          fanuctp_lsp = function(_, opts)
-            opts.on_attach = function(client, bufnr)
-              require("lsp_signature").on_attach({
-                bind = true,
-                handler_opts = { border = "rounded" },
-              }, bufnr)
-            end
-          end,
-        },
-      }
     end,
+    opts = {
+      servers = {
+        fanuctp = {
+          -- server opts here
+        },
+      },
+      setup = {
+        fanuctp = function(_, opts)
+          local lspconfig = require("lspconfig")
+          local configs = require("lspconfig.configs")
+          local util = require("lspconfig.util")
+
+          if not configs.fanuctp then
+            configs.fanuctp = {
+              default_config = {
+                cmd = {
+                  "FanucTpLSP.exe",
+                },
+                filetypes = {
+                  "tp",
+                },
+                single_file_support = true,
+                root_dir = util.root_pattern(".git", "."),
+                settings = {
+                  -- default settings here
+                },
+              },
+              commands = {},
+              docs = {
+                description = [[ 
+                ]],
+              },
+            }
+          end
+          lspconfig.fanuctp.setup(opts)
+        end,
+      },
+    },
   },
   {
     "kylechui/nvim-surround",
