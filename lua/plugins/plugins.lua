@@ -12,22 +12,6 @@ return {
           return vim.lsp.buf.hover()
         end,
       }
-      return {
-        --inlay_hints = { enabled = false },
-        servers = {
-          fanuctp_lsp = {},
-        },
-        setup = {
-          fanuctp_lsp = function(_, opts)
-            opts.on_attach = function(client, bufnr)
-              require("lsp_signature").on_attach({
-                bind = true,
-                handler_opts = { border = "rounded" },
-              }, bufnr)
-            end
-          end,
-        },
-      }
     end,
   },
   {
