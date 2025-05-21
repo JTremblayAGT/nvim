@@ -68,18 +68,6 @@ function M.setup()
 
       local diag = parse_result(d)
 
-      if #diag > 0 then
-        vim.notify("Found " .. #diag .. " issues in " .. vim.fn.fnamemodify(bufname, ":t"), vim.log.levels.WARN, {
-          title = "MakeTP",
-          timeout = 3000,
-        })
-      else
-        vim.notify("No issues found in " .. vim.fn.fnamemodify(bufname, ":t"), vim.log.levels.INFO, {
-          title = "MakeTP",
-          timeout = 1500,
-        })
-      end
-
       vim.diagnostic.set(ns, 0, diag, nil)
     end)
   end
@@ -105,4 +93,3 @@ function M.setup()
 end
 
 return M
-
