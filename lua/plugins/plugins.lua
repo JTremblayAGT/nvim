@@ -62,4 +62,19 @@ return {
       })
     end,
   },
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = { "saadparwaiz1/cmp_luasnip" },
+    opts = {
+      snippets = {
+        expand = function(args)
+          require("luasnip").lsp_expand(args.body)
+        end,
+      },
+      sources = {
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
+      },
+    },
+  },
 }
