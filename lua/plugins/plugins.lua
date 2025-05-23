@@ -1,5 +1,5 @@
 return {
-  { "simonl91/fanuc-karel-diagnostics.nvim" },
+  { "JTremblayAGT/fanuc-karel-diagnostics.nvim" },
   { "KnoP-01/vim-tp" },
   {
     "neovim/nvim-lspconfig",
