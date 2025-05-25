@@ -13,10 +13,10 @@ return {
     require("fanuc.klcompile").setup()
 
     -- Load the maketp diagnostics module
-    require("fanuc.maketp").setup()
+    --require("fanuc.maketp").setup()
 
     -- Load the checktp module
-    require("fanuc.checktp").setup()
+    --require("fanuc.checktp").setup()
 
     -- Load the TP navigation module
     require("fanuc.tp_navigation").setup()
@@ -27,4 +27,3 @@ return {
     vim.notify("Fanuc Dev Plugin loaded", vim.log.levels.INFO)
   end,
 }
-
