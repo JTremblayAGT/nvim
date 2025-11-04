@@ -27,4 +27,3 @@ return {
     vim.notify("Fanuc Dev Plugin loaded", vim.log.levels.INFO)
   end,
 }
-
