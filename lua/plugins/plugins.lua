@@ -1,20 +1,18 @@
 return {
   { "simonl91/fanuc-karel-diagnostics.nvim" },
   { "KnoP-01/vim-tp" },
+  { "wannesm/wmnusmv.vim" },
   {
     "neovim/nvim-lspconfig",
-    keys = function()
-      local keys = require("lazyvim.plugins.lsp.keymaps").get()
-      keys[#keys + 1] = { "K", false }
-      keys[#keys + 1] = {
-        "H",
-        function()
-          return vim.lsp.buf.hover()
-        end,
-      }
-    end,
     opts = {
       servers = {
+        ["*"] = {
+          keys = {
+            { "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", has = "definition" },
+            { "H", "<cmd>lua vim.lsp.buf.hover()<CR>", has = "definition" },
+            { "K", false },
+          },
+        },
         fanuctp = {
           -- server opts here
         },
@@ -29,10 +27,11 @@ return {
             configs.fanuctp = {
               default_config = {
                 cmd = {
-                  "FanucTpLSP.exe",
+                  "FanucLSP.exe",
                 },
                 filetypes = {
                   "tp",
+                  "karel",
                 },
                 single_file_support = true,
                 root_dir = util.root_pattern(".git", "."),
